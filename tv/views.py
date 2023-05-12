@@ -40,6 +40,3 @@ class ReviewDetail(generics.RetrieveUpdateDestroyAPIView):
 class MovieReviewList(generics.ListAPIView):
     queryset = Movie.objects.annotate(avg_rating=Avg('reviews__stars'))
     serializer_class = MovieSerializer
-
-
-

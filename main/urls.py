@@ -1,5 +1,5 @@
 """
-URL configuration for afisha project.
+URL configuration for main project.
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/4.2/topics/http/urls/
@@ -16,16 +16,17 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from movieapp import views
+
+from tv import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/v1/directors/', views.DirectorList.as_view()),
-    path('api/v1/directors/<int:id>/', views.DirectorDetail.as_view()),
-    path('api/v1/movies/', views.MovieList.as_view()),
-    path('api/v1/movies/<int:id>/', views.MovieDetail.as_view()),
-    path('api/v1/reviews/', views.ReviewList.as_view()),
-    path('api/v1/reviews/<int:id>/', views.ReviewDetail.as_view()),
+    path('api/v1/directors', views.DirectorList.as_view()),
+    path('api/v1/directors/<int:id>', views.DirectorDetail.as_view()),
+    path('api/v1/movies', views.MovieList.as_view()),
+    path('api/v1/movies/<int:id>', views.MovieDetail.as_view()),
+    path('api/v1/revies', views.ReviewList.as_view()),
+    path('api/v1/revies/<int:id>', views.ReviewDetail.as_view()),
     path('api/v1/movies/reviews/', views.MovieReviewList.as_view(), name='movie_review_list'),
 
 ]

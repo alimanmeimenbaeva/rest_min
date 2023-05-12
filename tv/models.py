@@ -15,7 +15,6 @@ class Movie(models.Model):
     duration = models.IntegerField()
     director = models.ForeignKey(Director, on_delete=models.CASCADE)
 
-
     def __str__(self):
         return self.title
 
@@ -23,9 +22,7 @@ class Movie(models.Model):
 class Review(models.Model):
     text = models.TextField()
     movie = models.ForeignKey(Movie, related_name='reviews', on_delete=models.CASCADE)
-    stars = models.IntegerField(default=0, validators=[MinValueValidator(1),MaxValueValidator(5)])
+    stars = models.IntegerField(default=3, validators=[MaxValueValidator(5), MinValueValidator(1)])
 
     def __str__(self):
         return f'{self.text} ({self.stars} stars)'
-
-

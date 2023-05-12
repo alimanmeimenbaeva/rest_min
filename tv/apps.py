@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 
 
-class MovieAppConfig(AppConfig):
+class TvConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'movieapp'
+    name = 'tv'

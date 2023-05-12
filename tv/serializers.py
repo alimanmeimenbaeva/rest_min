@@ -1,4 +1,4 @@
-from django.db.models import Count, Avg
+from django.db.models import Count
 from rest_framework import serializers, generics
 from .models import Director, Movie, Review
 
@@ -26,20 +26,21 @@ class ReviewSerializer(serializers.ModelSerializer):
 
 
 class MovieSerializer(serializers.ModelSerializer):
-    director_name = serializers.ReadOnlyField(source='director.name')
-    reviews = ReviewSerializer(many=True)
-    avg_rating = serializers.SerializerMethodField()
+    reviews = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Movie
+        fields = ('id', 'title', 'description', 'duration', 'director', 'reviews')
 
     def get_reviews(self, obj):
         reviews = obj.review_set.all()
         return ReviewSerializer(reviews, many=True).data
 
-    def get_avg_rating(self, obj):
-        return obj.reviews.aggregate(Avg('stars'))['stars__avg']
+
+class MovieSerializer(serializers.ModelSerializer):
+    reviews = ReviewSerializer(many=True)
+    avg_rating = serializers.FloatField()
 
     class Meta:
         model = Movie
-        fields = ('id', 'title', 'description', 'duration','director', 'reviews', 'avg_rating')
-
-
-
+        fields = ('id', 'title', 'description', 'duration', 'director', 'reviews', 'avg_rating')
